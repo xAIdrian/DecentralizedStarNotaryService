@@ -18,8 +18,6 @@ contract StarNotary is ERC721 {
     mapping(uint256 => uint256) public starsForSale;
     mapping(bytes32 => uint256) public coordsToTokenId;
 
-    event testEvent(string stringer, uint256 _tokenId, address sender, address owner);
-
     function createStar(
         uint256 _tokenId, string _name, string _story,
         string _dec, string _mag, string _cent) public { 
