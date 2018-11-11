@@ -1,0 +1,22 @@
+{
+  "name": "project_5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amohnacs15/DecentralizedStarNotaryService.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amohnacs15/DecentralizedStarNotaryService/issues"
+  },
+  "homepage": "https://github.com/amohnacs15/DecentralizedStarNotaryService#readme",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  }
+}
