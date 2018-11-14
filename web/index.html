@@ -47,8 +47,31 @@
             <button id="claim-button" onclick="claimButtonClicked()">Claim Star</button>
         </div>
 
-        <script>    
-         
+        <script>  
+        
+        
+            window.addEventListener('load', async () => {
+                if (window.ethereum) {
+                    window.web3 = new Web3(window.ethereum);
+
+                    try {
+                        await ethereum.enable();
+                        web3.eth.defaultAccount = web3.eth.accounts[0];
+                        console.log(web3.eth.accounts[0]);
+
+
+                        // the rest of the code here
+
+                } catch (e) {
+                    console.log('large error')
+                    console.log(e)
+                }
+            } else {
+                // Instantiate and set Ganache as your provider
+                web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+            }
+        })
+         /*
             if(typeof web3 != 'undefined') { 
                 web3 = new Web3(web3.currentProvider) // what Metamask injected 
             } else {
@@ -58,9 +81,9 @@
 
             // The default (top) wallet account from a list of test accounts 
             web3.eth.defaultAccount = web3.eth.accounts[0];
-
-            // The interface definition for your smart contract (the ABI) 
-            var StarNotary = web3.eth.contract(
+            */
+           // The interface definition for your smart contract (the ABI) 
+           var StarNotary = web3.eth.contract(
                 [
                     {
                         "constant": true,
@@ -542,31 +565,11 @@
                         "payable": false,
                         "stateMutability": "nonpayable",
                         "type": "function"
-                    }
-                ]
-            );
-            // Grab the contract at specified deployed address with the interface defined by the ABI
-            var starNotary = StarNotary.at('0x3dbf14c52de3bec278864410f3a085e1e0ae1a8d');
-            
-            console.log('notary')
-            console.log(starNotary)
-            // Get and display star name
-            starNotary.starName(function (error, result) {
-                if (!error) {
-                    document.getElementById('star-name').innerText = result
-                } else { 
-                    console.log(error);
-                }
-            });
-
-            // Get and display star owner
-            starNotary.starOwner(function (error, result) {
-                if (!error) {
-                    document.getElementById('star-owner').innerText = result
-                } else { 
-                    console.log(error);
-                }
-            });
+                        }
+                    ]
+                );
+                // Grab the contract at specified deployed address with the interface defined by the ABI
+                var starNotary = StarNotary.at('0x3dbf14c52de3bec278864410f3a085e1e0ae1a8d')
 
             // Enable claim button being clicked
             function claimButtonClicked() { 
@@ -578,6 +581,9 @@
                 var mag = document.getElementById('star_mag_input').value;
                 var cent = document.getElementById('star_cent_input').value;
 
+                
+
+
                 web3.eth.getAccounts(function(error, accounts) { 
                     if (error) { 
                         console.log(error)
@@ -586,8 +592,8 @@
 
                     var account = accounts[0]
 
-                    starNotary.createStar.sendTransaction (
-                        tokenId, starName, starStory, dec, mag, cent, {from:account},
+                    starNotary.createStar.sendTransaction(
+                        tokenId, starName, starStory, dec, mag, cent, {from: account},
                         function (error, result) {
                             if (!error) {
                                 var starClaimedEvent = starNotary.starClaimed({from: account});
