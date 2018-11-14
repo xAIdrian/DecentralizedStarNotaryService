@@ -15,8 +15,12 @@
             <h3>Please enter your coordinates:</h3>
 
             <div class="row">
+                <p class="bold" id="notifier_text"></p>
+            </div>
+
+            <div class="row">
                 <label class="bold">Token ID:</label>
-                <input type="text" id="token_id_input" placeholder="token id">
+                <input type="text" id="token_id_input" placeholder="please enter a numeric value">
             </div>
 
             <div class="row">
@@ -57,6 +61,8 @@
                     try {
                         await ethereum.enable();
                         web3.eth.defaultAccount = web3.eth.accounts[0];
+
+                        console.log()
                         console.log(web3.eth.accounts[0]);
 
 
@@ -69,19 +75,10 @@
             } else {
                 // Instantiate and set Ganache as your provider
                 web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+
+                console.log('made it here')
             }
         })
-         /*
-            if(typeof web3 != 'undefined') { 
-                web3 = new Web3(web3.currentProvider) // what Metamask injected 
-            } else {
-                // Instantiate and set Ganache as your provider
-                web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-            }
-
-            // The default (top) wallet account from a list of test accounts 
-            web3.eth.defaultAccount = web3.eth.accounts[0];
-            */
            // The interface definition for your smart contract (the ABI) 
            var StarNotary = web3.eth.contract(
                 [
@@ -574,6 +571,9 @@
             // Enable claim button being clicked
             function claimButtonClicked() { 
 
+                var notifyTextField = document.getElementById('notifier_text')
+                notifyTextField.innerHTML = "";
+
                 var tokenId = document.getElementById('token_id_input').value;
                 var starName = document.getElementById('star_name_input').value;
                 var starStory = document.getElementById('star_story_input').value;
@@ -581,13 +581,18 @@
                 var mag = document.getElementById('star_mag_input').value;
                 var cent = document.getElementById('star_cent_input').value;
 
-                
-
-
+            
                 web3.eth.getAccounts(function(error, accounts) { 
                     if (error) { 
+                        notifyTextField.innerHTML = error;
                         console.log(error)
                         return
+                    }
+
+                    if (tokenId === "" || starName === "" || starStory === "" || dec === "" || mag  === "" || cent  === "") {
+                        notifyTextField.innerHTML = 'you must provide all fields to claim a star'
+                        console.log('You must provide all star fields to claim a star')
+                        return;
                     }
 
                     var account = accounts[0]
@@ -596,17 +601,26 @@
                         tokenId, starName, starStory, dec, mag, cent, {from: account},
                         function (error, result) {
                             if (!error) {
-                                var starClaimedEvent = starNotary.starClaimed({from: account});
+
+                                var transactionReceipt = result;
+
+                                console.log('transaction receipt')
+                                console.log(transactionReceipt)
+
+                                var starClaimedEvent = starNotary.Transfer()
 
                                 starClaimedEvent.watch(function(error, result) {
                                     if (!error) {
+                                        notifyTextField.innerHTML = 'claimed event success! ' + result;
                                         console.log('claimed event success ' + result)
                                         //location.reload();
                                     } else {
+                                        notifyTextField.innerHTML = 'watching for star claimed event is failing'
                                         console.log('watching for star claimed event is failing');
                                     }
                                 });
                             } else { 
+                                notifyTextField.innerHTML = error;
                                 console.log(error);
                             }
                     });
