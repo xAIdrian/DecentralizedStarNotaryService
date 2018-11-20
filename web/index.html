@@ -596,7 +596,6 @@
                 var mag = document.getElementById('star_mag_input').value;
                 var cent = document.getElementById('star_cent_input').value;
 
-            
                 web3.eth.getAccounts(function(error, accounts) { 
                     if (error) { 
                         notifyTextField.innerHTML = error;
@@ -645,7 +644,6 @@
 
             //lookup star by token id
             function searchButtonClicked() {
-                console.log('clicked search')
 
                 var notifyTextField = document.getElementById('notifier_text')
                 notifyTextField.innerHTML = "";
@@ -666,13 +664,9 @@
                     }
 
                     var account = accounts[0]
-                    console.log('tokenidtostar')
-                    console.log(account)
 
                     starNotary.tokenIdToStarInfo(tokenId, { from: account },
                         function(error, result) {
-
-                            console.log('HUNTER')
 
                             if (!error) {
 
@@ -699,8 +693,6 @@
                             }
                         })
                 })    
-
-                console.log('made it all the way to the bottom')
             }
         </script>
     </body>
