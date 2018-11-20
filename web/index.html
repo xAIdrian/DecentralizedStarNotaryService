@@ -11,12 +11,13 @@
 
     <body>
         <div class="container">
-            <h1>Claim a Star!</h1>
-            <h3>Please enter your coordinates:</h3>
 
-            <div class="row">
+            <div class="row" style="margin-bottom: 20%">
                 <p class="bold" id="notifier_text"></p>
             </div>
+
+            <h1>Claim a Star!</h1>
+            <h3>Please enter your coordinates:</h3>
 
             <div class="row">
                 <label class="bold">Token ID:</label>
@@ -49,6 +50,21 @@
             </div>
 
             <button id="claim-button" onclick="claimButtonClicked()">Claim Star</button>
+
+            <div class="claim_container" style="margin-top: 20%">
+
+                    <h1>Star Lookup</h1>
+                    <h3>Search for Star By Id:</h3>
+        
+                    <div class="row">
+                        <label class="bold">Token ID:</label>
+                        <input type="text" id="star_id_input" placeholder="token id">
+                    </div>
+        
+                    <button id="search-button" onclick="searchButtonClicked()">Search Star</button>
+        
+                </div>
+
         </div>
 
         <script>  
@@ -62,9 +78,8 @@
                         await ethereum.enable();
                         web3.eth.defaultAccount = web3.eth.accounts[0];
 
-                        console.log()
+                        console.log("window account check")
                         console.log(web3.eth.accounts[0]);
-
 
                         // the rest of the code here
 
@@ -598,7 +613,7 @@
                     var account = accounts[0]
 
                     starNotary.createStar.sendTransaction(
-                        tokenId, starName, starStory, dec, mag, cent, {from: account},
+                        tokenId, starName, starStory, dec, mag, cent, { from: account },
                         function (error, result) {
                             if (!error) {
 
@@ -611,7 +626,7 @@
 
                                 starClaimedEvent.watch(function(error, result) {
                                     if (!error) {
-                                        notifyTextField.innerHTML = 'claimed event success! ' + result;
+                                        notifyTextField.innerHTML = 'claimed event success! ' + result.toString();
                                         console.log('claimed event success ' + result)
                                         //location.reload();
                                     } else {
@@ -623,8 +638,69 @@
                                 notifyTextField.innerHTML = error;
                                 console.log(error);
                             }
+
                     });
                 })
+            }
+
+            //lookup star by token id
+            function searchButtonClicked() {
+                console.log('clicked search')
+
+                var notifyTextField = document.getElementById('notifier_text')
+                notifyTextField.innerHTML = "";
+
+                var tokenId = document.getElementById('star_id_input').value;
+
+                web3.eth.getAccounts(function(error, accounts) { 
+                    if (error) { 
+                        notifyTextField.innerHTML = error;
+                        console.log(error)
+                        return
+                    }
+
+                    if(tokenId === "") {
+                        notifyTextField.innerHTML = 'you must provide a token id to search for a star'
+                        console.log('you must provide a token id to claim a star ')
+                        return;
+                    }
+
+                    var account = accounts[0]
+                    console.log('tokenidtostar')
+                    console.log(account)
+
+                    starNotary.tokenIdToStarInfo(tokenId, { from: account },
+                        function(error, result) {
+
+                            console.log('HUNTER')
+
+                            if (!error) {
+
+                                var stringArray = result.toString().split(',');
+                                console.log(stringArray)
+
+                                if (stringArray[0] === '') {
+                                    notifyTextField.innerHTML = 'star not found ->_<-'
+                                } else {
+                                    notifyTextField.innerHTML = 'Star Found!'
+                                    notifyTextField.innerHTML += " Token ID: " + tokenId;
+                                    notifyTextField.innerHTML += ', Star Name: ' + stringArray[0]
+                                    notifyTextField.innerHTML += ', Star Stroy: ' + stringArray[1]
+                                    notifyTextField.innerHTML += ', Dec: ' + stringArray[2]
+                                    notifyTextField.innerHTML += ', Mag: ' + stringArray[3]
+                                    notifyTextField.innerHTML += ', Cent: ' + stringArray[4]    
+                                }
+                                console.log('found star success ' + result)
+
+                            } else {
+                                notifyTextField.innerHTML = 'tokenId to star info failed'
+                                console.log('tokenId to star info failed')
+                                return;
+                            }
+                        })
+                })    
+
+                console.log('made it all the way to the bottom')
             }
         </script>
     </body>
