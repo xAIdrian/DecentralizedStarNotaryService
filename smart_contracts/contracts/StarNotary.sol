@@ -24,16 +24,15 @@ contract StarNotary is ERC721 {
 
         if(!checkIfStarExists(_tokenId, _dec, _mag, _cent)) {            
 
-            Star memory newStar = Star(_name, _story, _dec, _mag, _cent);
-
-            tokenIdToStarInfo[_tokenId] = newStar;
+            //Remember that the purpose of Solidity is to reduce the amount of memory operations require, to reduce the gas cost of smart contract operations.
+            tokenIdToStarInfo[_tokenId] = Star(_name, _story, _dec, _mag, _cent);
 
             this.mint(msg.sender, _tokenId);
         }
     }
 
     function putStarUpForSale(uint256 _tokenId, uint256 _price) public { 
-        require(this.ownerOf(_tokenId) == msg.sender, "Sender does not own this star");
+        require(this.ownerOf(_tokenId) == msg.sender);
 
         starsForSale[_tokenId] = _price;
     }
