@@ -1,3 +1,6 @@
+//StarNotaryScript.js
+
+//let's move this into a Helper class
 window.addEventListener('load', async () => {
     if (window.ethereum) {
         window.web3 = new Web3(window.ethereum);
@@ -6,21 +9,18 @@ window.addEventListener('load', async () => {
             await ethereum.enable();
             web3.eth.defaultAccount = web3.eth.accounts[0];
 
-            console.log("window account check")
             console.log(web3.eth.accounts[0]);
 
-            // the rest of the code here
+        } catch (e) {
+            console.log('large error')
+            console.log(e)
+        }
+    } else {
+        // Instantiate and set Ganache as your provider
+        window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
-    } catch (e) {
-        console.log('large error')
-        console.log(e)
+        console.log('made it here')
     }
-} else {
-    // Instantiate and set Ganache as your provider
-    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-
-    console.log('made it here')
-}
 })
 // The interface definition for your smart contract (the ABI) 
 var StarNotary = web3.eth.contract(

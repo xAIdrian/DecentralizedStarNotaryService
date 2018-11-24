@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/amohnacs15/DecentralizedStarNotaryService#readme",
   "dependencies": {
+    "express": "^4.16.4",
     "http-server": "^0.11.1"
   }
 }
