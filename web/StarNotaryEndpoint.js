@@ -16,7 +16,6 @@ app.listen(port, () =>  {
         self.web3 = result.web3;
         self.starNotary = result.contract;
 
-
     }, function(error) {
         console.log(error)
     })
@@ -26,9 +25,39 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 //communicate with your Ethereum smart contract
 //to get the star on the blockchain with the Token ID
-app.get('star/:starTokenId', (request, response) => {
-    let params = request.params;
+app.get('/star/:starTokenId', (request, response) => {
+    let self = this;
+    let starToken = request.params.starTokenId;
 
-    //get access to our smart contract and call method
+    if (web3 !== undefined && starNotary !== undefined 
+        && starToken !== undefined) {
+
+        if (starToken === "") {
+            res.send('Star Token Id must be a valid value');
+            return;
+        }    
+
+        web3.eth.getAccounts(function(error, accounts) { 
+            if (error) { 
+                res.send(error)
+                return
+            }
+    
+            var account = accounts[0]
+
+            self.starNotary.tokenIdToStarInfo(tokenId, { from: account },
+                function(error, result) {
+                
+                if (!error) {
+                    res.send(result)
+                } else {
+                    res.send(error)
+                }    
+            })
+        })
+        
+    } else {
+        res.send('something went wrong or some data is missing!')
+    }
 })
 
