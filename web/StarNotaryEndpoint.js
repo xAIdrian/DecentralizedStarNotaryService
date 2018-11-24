@@ -3,7 +3,6 @@ const app = express()
 const port = 3000
 
 const ConfigurationHelper = require('./ConfigurationHelper.js')
-const Configuration = require('./Configuration.js')
 
 let starNotary;
 
@@ -11,12 +10,13 @@ app.listen(port, () =>  {
     let self = this;
     console.log(`Example app listening on port ${port}!`)
 
-    ConfigurationHelper.getConfiguration(window).then(function(result) {
+    ConfigurationHelper.getConfiguration().then(function(result) {
 
-        self.starNotary = result.contract;
+        self.starNotary = result;
+        console.log(self.starNotary)
 
     }, function(error) {
-
+        console.log(error)
     })
 })
 

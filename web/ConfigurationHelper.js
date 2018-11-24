@@ -1,33 +1,25 @@
 //ConfigurationHelper.js
-const Configuration = require('./Configuration.js')
+const Web3 = require('web3')
 
 //set the appropriate web3 instance and StarNotary Contract
-const getConfiguration = function(window) {
+const getConfiguration = function() {
     return new Promise((onFulfilled, onRejected) => {
 
-        window.addEventListener('load', async () => {
-            if (window.ethereum) {
-                window.web3 = new Web3(window.ethereum);
-        
-                try {
-                    await ethereum.enable();
-                    web3.eth.defaultAccount = web3.eth.accounts[0];
-
-                    console.log('ethereum BROWSER instance loaded')
-        
-                } catch (e) {
-                    console.log(e)
-                    onRejected(e)
-                }
+        if(typeof web3 != 'undefined') { 
+                web3 = new Web3(web3.currentProvider) // what Metamask injected 
             } else {
                 // Instantiate and set Ganache as your provider
                 web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-
-                console.log('ethereum GANACHE instance loaded')
             }
-        })
-        // The interface definition for your smart contract (the ABI) 
-    var StarNotary = web3.eth.contract(
+
+        try { 
+            // The default (top) wallet account from a list of test accounts
+            web3.eth.defaultAccount = web3.eth.accounts[0];
+        } catch(error) {
+            onRejected(error)
+        }
+            // The interface definition for your smart contract (the ABI) 
+        var starNotary = new web3.eth.Contract(
             [
                 {
                     "constant": true,
@@ -513,8 +505,8 @@ const getConfiguration = function(window) {
                 ]
         );
             // Grab the contract at specified deployed address with the interface defined by the ABI
-            var starNotary = StarNotary.at('0x3dbf14c52de3bec278864410f3a085e1e0ae1a8d')
-            var config = new Configuration(window, starNotary)
+            //var starNotary = StarNotary.at('0x3dbf14c52de3bec278864410f3a085e1e0ae1a8d')
+            var config = starNotary
 
             onFulfilled(config)
     })
