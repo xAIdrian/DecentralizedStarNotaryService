@@ -1,12 +1,13 @@
 //ConfigurationHelper.js
 const Web3 = require('web3')
+const Configuration = require('./Configuration.js')
 
 //set the appropriate web3 instance and StarNotary Contract
 const getConfiguration = function() {
     return new Promise((onFulfilled, onRejected) => {
 
         if(typeof web3 != 'undefined') { 
-                web3 = new Web3(web3.currentProvider) // what Metamask injected 
+                web3 = new Web3(web3.currentProvider)
             } else {
                 // Instantiate and set Ganache as your provider
                 web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
@@ -506,7 +507,7 @@ const getConfiguration = function() {
         );
             // Grab the contract at specified deployed address with the interface defined by the ABI
             //var starNotary = StarNotary.at('0x3dbf14c52de3bec278864410f3a085e1e0ae1a8d')
-            var config = starNotary
+            var config = new Configuration(web3, starNotary)
 
             onFulfilled(config)
     })

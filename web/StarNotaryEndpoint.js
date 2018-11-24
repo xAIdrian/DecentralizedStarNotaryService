@@ -4,6 +4,7 @@ const port = 3000
 
 const ConfigurationHelper = require('./ConfigurationHelper.js')
 
+let web3;
 let starNotary;
 
 app.listen(port, () =>  {
@@ -12,8 +13,9 @@ app.listen(port, () =>  {
 
     ConfigurationHelper.getConfiguration().then(function(result) {
 
-        self.starNotary = result;
-        console.log(self.starNotary)
+        self.web3 = result.web3;
+        self.starNotary = result.contract;
+
 
     }, function(error) {
         console.log(error)
