@@ -25,21 +25,21 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 //communicate with your Ethereum smart contract
 //to get the star on the blockchain with the Token ID
-app.get('/star/:starTokenId', (request, response) => {
+app.get('/star/:starTokenId', (req, res) => {
     let self = this;
-    let starToken = request.params.starTokenId;
+    let starToken = req.params.starTokenId;
 
-    if (web3 !== undefined && starNotary !== undefined 
-        && starToken !== undefined) {
+    if (this.web3 !== undefined && this.starNotary !== undefined 
+        && this.starToken !== undefined) {
 
-        if (starToken === "") {
-            res.send('Star Token Id must be a valid value');
+        if (this.starToken === "") {
+            console.log('Star Token Id must be a valid value');
             return;
         }    
 
-        web3.eth.getAccounts(function(error, accounts) { 
+        this.web3.eth.getAccounts(function(error, accounts) { 
             if (error) { 
-                res.send(error)
+                console.log(error)
                 return
             }
     
@@ -49,15 +49,15 @@ app.get('/star/:starTokenId', (request, response) => {
                 function(error, result) {
                 
                 if (!error) {
-                    res.send(result)
+                    console.log(result)
                 } else {
-                    res.send(error)
+                    console.log(error)
                 }    
             })
         })
         
     } else {
-        res.send('something went wrong or some data is missing!')
+        console.log('something went wrong or some data is missing!')
     }
 })
 
