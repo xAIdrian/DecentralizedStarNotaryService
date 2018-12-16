@@ -1,4 +1,4 @@
-# DecentralizedStarNotaryService
+# Decentralized Star Notary Service
 
 ### Deploying to Rinkeby
 
