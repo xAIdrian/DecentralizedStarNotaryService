@@ -39,18 +39,21 @@ app.get('/star/:starTokenId', (req, res) => {
 
         this.web3.eth.getAccounts(function(error, accounts) { 
             if (error) { 
+                console.log('top error')
                 console.log(error)
                 return
             }
     
             var account = accounts[0]
 
-            self.starNotary.tokenIdToStarInfo(tokenId, { from: account },
+            self.starNotary.tokenIdToStarInfo(starToken, { from: account },
                 function(error, result) {
                 
                 if (!error) {
+                    console.log('bottom result')
                     console.log(result)
                 } else {
+                    console.log('bottom error')
                     console.log(error)
                 }    
             })
