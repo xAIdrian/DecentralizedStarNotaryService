@@ -39,7 +39,7 @@ Star story
 
 ### Screenshots
 
-<img width="312" alt="screen shot 2019-02-23 at 9 45 31 pm" src="https://user-images.githubusercontent.com/7444521/53406173-5f964d80-39f4-11e9-9480-fb3ce2fb55db.png">
+<img width="1280" alt="screen shot 2019-02-26 at 6 24 50 pm" src="https://user-images.githubusercontent.com/7444521/53406320-b2700500-39f4-11e9-868a-2ad81029fc48.png">
 
 
 ### Instruction
