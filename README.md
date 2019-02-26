@@ -39,9 +39,8 @@ Star story
 
 ### Screenshots
 
-<img width="1006" alt="screen shot 2018-11-19 at 9 40 05 pm" src="https://user-images.githubusercontent.com/7444521/48753709-e42e3e80-ec43-11e8-946a-897eef25499c.png">
+<img width="312" alt="screen shot 2019-02-23 at 9 45 31 pm" src="https://user-images.githubusercontent.com/7444521/53406173-5f964d80-39f4-11e9-9480-fb3ce2fb55db.png">
 
-<img width="1013" alt="screen shot 2018-11-19 at 9 40 26 pm" src="https://user-images.githubusercontent.com/7444521/48753722-ea241f80-ec43-11e8-87ba-39e06238b507.png">
 
 ### Instruction
 
