@@ -1,73 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Star Notary</title>
-        <link rel="stylesheet" type="text/css" href="style.css">
 
-        <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Notary</title>
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-    <body>
-        <div class="container">
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 
-            <div class="row" style="margin-bottom: 20%">
-                <p class="bold" id="notifier_text"></p>
-            </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
 
-            <h1>Claim a Star!</h1>
-            <h3>Please enter your coordinates:</h3>
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {
+            height: 450px
+        }
 
-            <div class="row">
-                <label class="bold">Token ID:</label>
-                <input type="text" id="token_id_input" placeholder="please enter a numeric value">
-            </div>
+        /* Set gray background color and 100% height */
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+        }
 
-            <div class="row">
-                <label class="bold">Star Name:</label>
-                <input type="text" id="star_name_input" placeholder="star name">
-            </div>
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
 
-            <div class="row">
-                <label class="bold">Star Story:</label>
-                <input type="text" id="star_story_input" placeholder="star story">
-            </div>
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
 
-            <div class="row">
-                <label class="bold">Dec:</label>
-                <input type="text" id="star_dec_input" placeholder="dec">
-            </div>
+            .row.content {
+                height: auto;
+            }
+        }
+    </style>
+</head>
 
-            <div class="row">
-                <label class="bold">Mag:</label>
-                <input type="text" id="star_mag_input" placeholder="mag">
-            </div>
+<nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">Responsive Website</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <!-- left navigation links -->
+            <ul class="navbar-nav mr-auto">
 
-            <div class="row">
-                <label class="bold">Cent:</label>
-                <input type="text" id="star_cent_input" placeholder="cent">
-            </div>
+                <!-- active navigation link -->
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
 
-            <button id="claim-button" onclick="claimButtonClicked()">Claim Star</button>
+                <!-- regular navigation link -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
 
-            <div class="claim_container" style="margin-top: 20%">
+                <!-- more navigation links -->
+
+            </ul>
+
+            <!-- right navigation link -->
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="jumbotron">
+        <h1 class="display-2">Learn Geometry</h1>
+        <p class="lead">Marketing message here.</p>
+        <a class="btn btn-lg btn-primary" href="#" role="button">Call to Action »</a>
+    </div>
+
+    <div class="row">
+        <!-- narrower column -->
+        <div class="col-md-4 mb-4">
+            <h3 class="display-4">Title</h3>
+            <p>
+                Paragraph text.
+            </p>
+            <a href="#" class="btn btn-primary">Button</a>
+        </div>
+        <!-- wider column -->
+        <div class="col-md-8 mb-4">
+
+            <div class="container">
+
+                <h1>Claim a Star!</h1>
+                <h3>Please enter your coordinates:</h3>
+
+                <div class="row">
+                    <label class="bold">Token ID:</label>
+                    <input type="text" id="token_id_input" placeholder="please enter a numeric value">
+                </div>
+
+                <div class="row">
+                    <label class="bold">Star Name:</label>
+                    <input type="text" id="star_name_input" placeholder="star name">
+                </div>
+
+                <div class="row">
+                    <label class="bold">Star Story:</label>
+                    <input type="text" id="star_story_input" placeholder="star story">
+                </div>
+
+                <div class="row">
+                    <label class="bold">Dec:</label>
+                    <input type="text" id="star_dec_input" placeholder="dec">
+                </div>
+
+                <div class="row">
+                    <label class="bold">Mag:</label>
+                    <input type="text" id="star_mag_input" placeholder="mag">
+                </div>
+
+                <div class="row">
+                    <label class="bold">Cent:</label>
+                    <input type="text" id="star_cent_input" placeholder="cent">
+                </div>
+
+                <button id="claim-button" onclick="claimButtonClicked()">Claim Star</button>
+
+                <div class="claim_container" style="margin-top: 20%">
 
                     <h1>Star Lookup</h1>
                     <h3>Search for Star By Id:</h3>
-        
+
                     <div class="row">
                         <label class="bold">Token ID:</label>
                         <input type="text" id="star_id_input" placeholder="token id">
                     </div>
-        
+
                     <button id="search-button" onclick="searchButtonClicked()">Search Star</button>
-        
+
                 </div>
 
+            </div>
         </div>
-        <script src="StarNotaryScript.js"></script>
-        <!--Is this possible and/or necessary?-->
-        <!--<script src="StarNotaryEndpoint.js"></script>-->
-    </body>
+    </div>
+
+    <footer class="container mt-4">
+        <div class="row">
+            <div class="col">
+                <p class="text-center">Design by <a href="https://seedtowealth.com">Seedlling Consulting, LLC.</a></p>
+            </div>
+        </div>
+    </footer>
+
+</nav>
+
+<body>
+
+    <!-- <script src="StarNotaryScript.js"></script> -->
+
+    <!--Is this possible and/or necessary?-->
+    <!--<script src="StarNotaryEndpoint.js"></script>-->
+</body>
+
 </html>
