@@ -38,6 +38,10 @@
             padding: 15px;
         }
 
+        div {
+            padding: 8px;
+        }
+
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
             .sidenav {
@@ -52,124 +56,122 @@
     </style>
 </head>
 
-<nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" href="#">Responsive Website</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <!-- left navigation links -->
-            <ul class="navbar-nav mr-auto">
+<div class="jumbotron text-center"
+    style="
+        background-image:url('/res/derp.jpg');
+        background-size:100% auto;">
 
-                <!-- active navigation link -->
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
+    <h1 class="display-2"
+        style="color:white;">Star Notary</h1>
+    <p class="lead"
+        style="color:white;">Secure your star on our blockchain</p>
+    <a class="btn btn-lg btn-primary" href="#" role="button">Contact Us »</a>
+</div>
 
-                <!-- regular navigation link -->
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
+<div class="row">
+    <!-- narrow column -->
+    <div class="col-md-5 mb-4">
 
-                <!-- more navigation links -->
+        <div class="container">
 
-            </ul>
+            <h1>Claim a Star!</h1>
+            <h3>Please enter your coordinates:</h3>
 
-            <!-- right navigation link -->
-            <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+            <div class="row">
+                <label class="bold">Token ID:</label>
+                <input type="text" id="token_id_input" placeholder="please enter a numeric value">
+            </div>
 
-    <div class="jumbotron">
-        <h1 class="display-2">Learn Geometry</h1>
-        <p class="lead">Marketing message here.</p>
-        <a class="btn btn-lg btn-primary" href="#" role="button">Call to Action »</a>
-    </div>
+            <div class="row">
+                <label class="bold">Star Name:</label>
+                <input type="text" id="star_name_input" placeholder="star name">
+            </div>
 
-    <div class="row">
-        <!-- narrower column -->
-        <div class="col-md-4 mb-4">
-            <h3 class="display-4">Title</h3>
-            <p>
-                Paragraph text.
-            </p>
-            <a href="#" class="btn btn-primary">Button</a>
-        </div>
-        <!-- wider column -->
-        <div class="col-md-8 mb-4">
+            <div class="row">
+                <label class="bold">Star Story:</label>
+                <input type="text" id="star_story_input" placeholder="star story">
+            </div>
 
-            <div class="container">
+            <div class="row">
+                <label class="bold">Dec:</label>
+                <input type="text" id="star_dec_input" placeholder="dec">
+            </div>
 
-                <h1>Claim a Star!</h1>
-                <h3>Please enter your coordinates:</h3>
+            <div class="row">
+                <label class="bold">Mag:</label>
+                <input type="text" id="star_mag_input" placeholder="mag">
+            </div>
+
+            <div class="row">
+                <label class="bold">Cent:</label>
+                <input type="text" id="star_cent_input" placeholder="cent">
+            </div>
+
+            <button id="claim-button" onclick="claimButtonClicked()">Claim Star</button>
+
+            <div class="claim_container" style="margin-top: 20%">
+
+                <h1>Star Lookup</h1>
+                <h3>Search for Star By Id:</h3>
 
                 <div class="row">
                     <label class="bold">Token ID:</label>
-                    <input type="text" id="token_id_input" placeholder="please enter a numeric value">
+                    <input type="text" id="star_id_input" placeholder="token id">
                 </div>
 
-                <div class="row">
-                    <label class="bold">Star Name:</label>
-                    <input type="text" id="star_name_input" placeholder="star name">
-                </div>
-
-                <div class="row">
-                    <label class="bold">Star Story:</label>
-                    <input type="text" id="star_story_input" placeholder="star story">
-                </div>
-
-                <div class="row">
-                    <label class="bold">Dec:</label>
-                    <input type="text" id="star_dec_input" placeholder="dec">
-                </div>
-
-                <div class="row">
-                    <label class="bold">Mag:</label>
-                    <input type="text" id="star_mag_input" placeholder="mag">
-                </div>
-
-                <div class="row">
-                    <label class="bold">Cent:</label>
-                    <input type="text" id="star_cent_input" placeholder="cent">
-                </div>
-
-                <button id="claim-button" onclick="claimButtonClicked()">Claim Star</button>
-
-                <div class="claim_container" style="margin-top: 20%">
-
-                    <h1>Star Lookup</h1>
-                    <h3>Search for Star By Id:</h3>
-
-                    <div class="row">
-                        <label class="bold">Token ID:</label>
-                        <input type="text" id="star_id_input" placeholder="token id">
-                    </div>
-
-                    <button id="search-button" onclick="searchButtonClicked()">Search Star</button>
-
-                </div>
+                <button id="search-button" onclick="searchButtonClicked()">Search Star</button>
 
             </div>
         </div>
     </div>
 
-    <footer class="container mt-4">
-        <div class="row">
-            <div class="col">
-                <p class="text-center">Design by <a href="https://seedtowealth.com">Seedlling Consulting, LLC.</a></p>
-            </div>
-        </div>
-    </footer>
+    <!-- wider column -->
+    <div class="col-md-7 mb-4">
+        <h3 class="display-4">Title</h3>
+        <p>
+            Lorem ipsum dolor amet direct trade succulents microdosing locavore, migas kitsch blog crucifix franzen art
+            party drinking vinegar deep v kombucha sriracha. Plaid vexillologist selfies thundercats, organic man bun
+            hoodie shaman hella salvia PBR&B. Banjo woke hammock taiyaki. Stumptown pickled meggings gentrify prism.
+            Asymmetrical salvia chambray before they sold out mixtape paleo jean shorts migas pickled blue bottle.
 
-</nav>
+            Godard poutine hammock celiac flannel brunch, tattooed quinoa flexitarian cronut neutra. Man bun small batch
+            taxidermy, YOLO prism forage ugh tattooed enamel pin. Retro tilde cardigan kitsch, PBR&B single-origin
+            coffee williamsburg shabby chic occupy narwhal 8-bit photo booth coloring book kale chips ethical.
+            Kickstarter slow-carb quinoa, forage woke copper mug yr snackwave mlkshk enamel pin squid vexillologist la
+            croix occupy mixtape. Deep v blog butcher actually marfa sriracha craft beer neutra vinyl tilde. Synth tofu
+            schlitz, cliche snackwave tattooed jianbing kombucha lumbersexual narwhal plaid cronut deep v. Mlkshk
+            aesthetic umami migas pabst VHS.
+
+            Typewriter vice salvia shaman shoreditch hell of. Vaporware pitchfork chillwave lo-fi banjo forage. Retro
+            keytar readymade viral pabst hashtag helvetica chillwave gastropub iPhone cred occupy umami hammock. Art
+            party salvia typewriter, quinoa bicycle rights etsy activated charcoal 3 wolf moon flexitarian shabby chic.
+
+            Retro keffiyeh plaid, hoodie celiac af raclette taxidermy kickstarter vape hexagon migas. Knausgaard banjo
+            man braid jean shorts iceland artisan food truck ugh 90's williamsburg mixtape. IPhone thundercats
+            flexitarian waistcoat vexillologist ennui kinfolk 3 wolf moon green juice. Small batch pork belly yr, fixie
+            blue bottle af hell of cred pug cold-pressed vaporware subway tile mlkshk. Church-key disrupt roof party,
+            edison bulb chambray man bun polaroid kombucha mumblecore butcher green juice cardigan.
+
+            Cold-pressed typewriter ugh vegan hoodie flannel single-origin coffee hella. XOXO letterpress ennui, selfies
+            mlkshk readymade roof party leggings. YOLO gastropub vice authentic cred artisan kitsch sartorial selvage
+            pork belly biodiesel kinfolk pug austin craft beer. Live-edge helvetica mlkshk ethical fixie, knausgaard
+            dreamcatcher deep v DIY man bun art party. Fingerstache truffaut plaid kogi biodiesel whatever bespoke
+            snackwave pug banh mi.
+
+            Oh. You need a little dummy text for your mockup? How quaint.
+        </p>
+        <a href="#" class="btn btn-primary">Button</a>
+    </div>
+
+</div>
+
+<footer class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <p class="text-center">Design by <a href="https://seedtowealth.com">Seedlling Consulting, LLC.</a></p>
+        </div>
+    </div>
+</footer>
 
 <body>
 
